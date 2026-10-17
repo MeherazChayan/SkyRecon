@@ -2,6 +2,10 @@
 
 Sky Recon is a transport-neutral Python toolkit for coordinating teams of autonomous vehicles. It provides mission dispatch, predictive collision avoidance, grid-based route planning, live telemetry snapshots, emergency landing, deterministic simulation, and an auditable SQLite event journal.
 
+<p align="center">
+  <img src="docs/assets/swarm_formation_flight.jpeg" alt="Sky Recon vehicles maintaining a coordinated formation" width="720">
+</p>
+
 The codebase is designed around small adapters. A simulator, MAVLink connection, or another vehicle transport can implement the `VehicleAdapter` protocol without changing mission logic.
 
 ## Quick start
@@ -40,6 +44,40 @@ asyncio.run(survey())
 - `routing.py` provides obstacle-aware grid routing.
 - `journal.py` records operational events in SQLite.
 - `adapters/` contains transport implementations; the included simulator is deterministic.
+
+## Operational views
+
+These reference views illustrate the workflows Sky Recon is designed to support. Hardware-specific screens require an appropriate `VehicleAdapter`; the core package remains independent of any single ground-control station or flight controller.
+
+### Ground-control mission overview
+
+Monitor connected vehicles, active routes, and mission progress from a compatible ground-control interface.
+
+![Sky Recon ground-control mission overview](docs/assets/mission_planner_gcs.jpg)
+
+### Readiness and diagnostics
+
+Review navigation quality, power state, communication health, and safety checks before dispatching a mission.
+
+![Sky Recon readiness and diagnostics view](docs/assets/preflight_status_check.png)
+
+### Coordinated formation
+
+Assign independent destinations while the separation guard adjusts unsafe velocity commands across the team.
+
+![Sky Recon coordinated formation](docs/assets/swarm_formation_flight.jpeg)
+
+### Separation analysis
+
+Use recorded telemetry to inspect inter-vehicle distance and validate configured safety margins.
+
+![Sky Recon separation analysis](docs/assets/fleet_distance_metrics.jpg)
+
+### Survey trajectory reconstruction
+
+Mission journals and adapter telemetry can feed downstream mapping and three-dimensional trajectory analysis.
+
+![Sky Recon survey trajectory reconstruction](docs/assets/drones-05-00033-g009-550.jpg)
 
 ## Safety boundary
 
